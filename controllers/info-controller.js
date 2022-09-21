@@ -42,6 +42,17 @@ class InfoController {
             
         }
     }
+
+    async removeCraftingItem(req, res, next) {
+        try {
+            const { id, craftingItem } = req.body;
+            console.log("info-controller: ")
+            const re = await infoService.removeCraftingItem(id, craftingItem);
+            res.json(re)
+        } catch (error) {
+            
+        }
+    }
 }
 
 export default new InfoController();

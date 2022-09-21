@@ -45,9 +45,12 @@ class InfoService {
 
     async addCraftingItem(userId, craftingItem) {
         try {
-            const added = await infoModel.find({craftingItems: craftingItem});
-            console.log(added)
-            if(added.length ===0) {
+            const info = await infoModel.findOne({
+                user: userId, 
+                craftingItems: craftingItem
+            });
+            console.log(info)
+            if(!info) {
                 return await infoModel.updateOne(
                     { user: userId },
                     { $push: { craftingItems: craftingItem } }
@@ -62,8 +65,22 @@ class InfoService {
         }
     }
 
-    async removeCraftingItem() {
+    async removeCraftingItem(userId, craftingItem) {
         try {
+            const info = await infoModel.findOne({
+                user: userId, 
+                craftingItems: craftingItem
+            });
+            console.log(info)
+            if(info) {
+                return await infoModel.updateOne(
+                    { user: userId },
+                    { $pull: { craftingItems: craftingItem } }
+                )
+            }
+            else {
+                return "There is no such item"
+            }
             
         } catch (error) {
             return error;
