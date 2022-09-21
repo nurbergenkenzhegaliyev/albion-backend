@@ -32,6 +32,16 @@ class InfoController {
             next(error)
         }
     }
+
+    async addCraftingItem(req, res, next) {
+        try {
+            const { id, craftingItem } = req.body;
+            const re = await infoService.addCraftingItem(id, craftingItem);
+            res.json(re)
+        } catch (error) {
+            
+        }
+    }
 }
 
 export default new InfoController();

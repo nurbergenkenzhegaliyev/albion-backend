@@ -2,6 +2,7 @@ import ApiError from '../exceptions/api-error.js';
 import infoModel from '../models/info-model.js'
 import resourcePriceModel from "../models/resourcePrice-model.js";
 
+
 class InfoService {
     async createResourcePrice(userId) {
         const resourceData = await resourcePriceModel.findOne({user: userId})
@@ -42,9 +43,20 @@ class InfoService {
         return info.craftingItems;
     }
 
-    async addCraftingItem() {
+    async addCraftingItem(userId, craftingItem) {
         try {
-            
+            const added = await infoModel.find({craftingItems: craftingItem});
+            console.log(added)
+            if(added.length ===0) {
+                return await infoModel.updateOne(
+                    { user: userId },
+                    { $push: { craftingItems: craftingItem } }
+                )
+            }
+            else {
+                return "Item already exists in array"
+            }
+
         } catch (error) {
             return error;
         }

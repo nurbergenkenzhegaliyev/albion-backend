@@ -4,6 +4,7 @@ import userService from "../service/user-service.js";
 
 
 class UserController {
+    
     async registration(req, res ,next) {
         try {
             const errors = validationResult(req);
@@ -18,6 +19,7 @@ class UserController {
             next(error)
         }
     }
+
     async login(req, res ,next) {
         try {
             const {username, password} = req.body;
@@ -53,15 +55,6 @@ class UserController {
         } catch (error) {
             next(error)
             
-        }
-    }
-
-    async getUsers(req, res ,next) {
-        try {
-            const users = await userService.getAllUser();
-            return res.json(users);
-        } catch (error) {
-            next(error)
         }
     }
 }
