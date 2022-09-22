@@ -16,8 +16,12 @@ class userService {
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});
+        // Create a document with resource prices for user
         await infoService.createResourcePrice(userDto.id);
+        // Create a documnet to store additional information
+        // 1. Crafting items
         await infoService.createCraftingItemsArray(userDto.id);
+        // Create tokens for user
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
         return {...tokens, user: userDto};
