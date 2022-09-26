@@ -15,14 +15,14 @@ class InfoController {
   async changeResourcePrice(req, res, next) {
     try {
       const { id, name, price } = req.body;
-      infoService.changeResourcePrice(id, name, price);
+      await infoService.changeResourcePrice(id, name, price);
       return res.json({ name, price });
     } catch (error) {
       next(error);
     }
   }
 
-  async getCraftingItemArray(req, res, next) {
+  async getCraftingItems(req, res, next) {
     try {
       const { id } = req.body;
       const items = await infoService.getCraftingItems(id);
@@ -33,19 +33,21 @@ class InfoController {
     }
   }
 
-  async addCraftingItemToArray(req, res, next) {
+  async addCraftingItem(req, res, next) {
     try {
       const { id, craftingItem } = req.body;
-      const re = await infoService.addCraftingItem(id, craftingItem);
-      res.json(re);
-    } catch (error) {}
+      const data = await infoService.addCraftingItem(id, craftingItem);
+      res.json(data);
+    } catch (error) {
+      res.json("Could not add this item or there is already this item.")
+    }
   }
 
-  async removeCraftingItemToArray(req, res, next) {
+  async removeCraftingItem(req, res, next) {
     try {
       const { id, craftingItem } = req.body;
-      const re = await infoService.removeCraftingItem(id, craftingItem);
-      res.json(re);
+      const data = await infoService.removeCraftingItem(id, craftingItem);
+      res.json(data);
     } catch (error) {
       next(error);
     }

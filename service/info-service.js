@@ -4,7 +4,10 @@ import infoModel from "../models/info-model.js";
 import resourcePriceModel from "../models/resourcePrice-model.js";
 import craftingItemModel from "../models/craftingItem-model.js";
 import itemLocaliztionModel from "../models/itemLocalizations-model.js";
+
 class InfoService {
+  // Creates a seperate document wit resource prices
+  // referenced ot the user
   async createResourcePrice(userId) {
     const resourceData = await resourcePriceModel.findOne({ user: userId });
     if (resourceData) {
@@ -15,19 +18,24 @@ class InfoService {
     return resource;
   }
 
+  // Get reource price document with "user: userId" 
   async getResourcePrices(userId) {
     const resourcePrices = await resourcePriceModel.findOne({ user: userId });
     return resourcePrices;
   }
 
+  // Change price of exact resource
+  // Takes name and price of changed resources and update it in the document
   async changeResourcePrice(id, name, price) {
     const resources = await resourcePriceModel.findOne({ user: id });
     await resources.updateOne({ [name]: price });
   }
+
+  // Create seperate infoModel for new user
   async createCraftingItemsArray(userId) {
     try {
       const info = await infoModel.findOne({ userId });
-      if (info) {
+      if (!info) {
         throw ApiError.BadRequest("БД инфо для этого пользователя существует");
       }
 
@@ -38,31 +46,39 @@ class InfoService {
     }
   }
 
+  // Get crafting items list of an exact user
   async getCraftingItems(userId) {
     const info = await infoModel.findOne({ user: userId });
+    console.log("get crafting items: ", info);
     return info.craftingItems;
   }
 
+  // Add new crafting item to user crafting item list
   async addCraftingItem(userId, craftingItem) {
     try {
+      // Find infoModel with "craftingItem" in "craftingItems" array
       const info = await infoModel.findOne({
         user: userId,
         craftingItems: craftingItem,
       });
-      console.log(info);
+      // If there is no such document
       if (!info) {
-        return await infoModel.updateOne(
+        // Update document with userId
+        // Push "craftingItem" to "craftinItems" array
+        await infoModel.updateOne(
           { user: userId },
           { $push: { craftingItems: craftingItem } }
         );
-      } else {
-        return "Item already exists in array";
+        // return "craftingItems" array
+        const user = await infoModel.findOne({ user: userId });
+        return user.craftingItems;
       }
     } catch (error) {
       return error;
     }
   }
 
+  // Remove crafting item from crafting items list 
   async removeCraftingItem(userId, craftingItem) {
     try {
       const info = await infoModel.findOne({
@@ -71,18 +87,22 @@ class InfoService {
       });
       console.log(info);
       if (info) {
-        return await infoModel.updateOne(
+        await infoModel.updateOne(
           { user: userId },
           { $pull: { craftingItems: craftingItem } }
         );
+        const user = await infoModel.findOne({ user: userId });
+        return user.craftingItems;
       } else {
-        return "There is no such item";
+        const user = await infoModel.findOne({ user: userId });
+        return user.craftingItems;
       }
     } catch (error) {
       return error;
     }
   }
 
+  // Get information about a item with uniquename
   async getItemInfo(uniquename) {
     try {
       const item = await craftingItemModel.findOne({
@@ -94,6 +114,7 @@ class InfoService {
     }
   }
 
+  // Get localization info for an item with uniquename
   async getItemLocalization(uniquename) {
     try {
       const item = await itemLocaliztionModel.findOne({

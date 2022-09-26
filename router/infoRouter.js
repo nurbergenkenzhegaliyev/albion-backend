@@ -5,19 +5,19 @@ import infoController from "../controllers/info-controller.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
 router.post(
-  "/getCraftingItemArray",
+  "/getCraftingItems",
   authMiddleware,
-  infoController.getCraftingItemArray
+  infoController.getCraftingItems
 );
 router.post(
-  "/addCraftingItemToArray",
+  "/addCraftingItem",
   authMiddleware,
-  infoController.addCraftingItemToArray
+  infoController.addCraftingItem
 );
 router.post(
-  "/removeCraftingItemToArray",
+  "/removeCraftingItem",
   authMiddleware,
-  infoController.removeCraftingItemToArray
+  infoController.removeCraftingItem
 );
 router.post("/getItemInfo", infoController.getItemInfo);
 router.post("/getItemLocalization", infoController.getItemLocaliztion);
