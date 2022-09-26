@@ -61,6 +61,7 @@ class InfoService {
         user: userId,
         craftingItems: craftingItem,
       });
+      console.log("info", info);
       // If there is no such document
       if (!info) {
         // Update document with userId
@@ -69,10 +70,11 @@ class InfoService {
           { user: userId },
           { $push: { craftingItems: craftingItem } }
         );
-        // return "craftingItems" array
-        const user = await infoModel.findOne({ user: userId });
-        return user.craftingItems;
       }
+      // return "craftingItems" array
+      const user = await infoModel.findOne({ user: userId });
+      console.log("user", user)
+      return user.craftingItems;
     } catch (error) {
       return error;
     }
@@ -85,7 +87,6 @@ class InfoService {
         user: userId,
         craftingItems: craftingItem,
       });
-      console.log(info);
       if (info) {
         await infoModel.updateOne(
           { user: userId },

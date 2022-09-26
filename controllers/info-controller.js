@@ -39,7 +39,7 @@ class InfoController {
       const data = await infoService.addCraftingItem(id, craftingItem);
       res.json(data);
     } catch (error) {
-      res.json("Could not add this item or there is already this item.")
+      next(error)
     }
   }
 
