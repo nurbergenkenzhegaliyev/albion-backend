@@ -22,4 +22,11 @@ router.post(
 router.post("/getItemInfo", infoController.getItemInfo);
 router.post("/getItemLocalization", infoController.getItemLocaliztion);
 
+
+router.post(
+  "/addPrice",
+  authMiddleware,
+  infoController.addCraftingItemSellPrices
+);
+
 export default router;

@@ -18,7 +18,7 @@ class InfoService {
     return resource;
   }
 
-  // Get reource price document with "user: userId" 
+  // Get reource price document with "user: userId"
   async getResourcePrices(userId) {
     const resourcePrices = await resourcePriceModel.findOne({ user: userId });
     return resourcePrices;
@@ -49,8 +49,8 @@ class InfoService {
   // Get crafting items list of an exact user
   async getCraftingItems(userId) {
     const info = await infoModel.findOne({ user: userId });
-    console.log("get crafting items: ", info);
-    return info.craftingItems;
+    console.log(info)
+    return info;
   }
 
   // Add new crafting item to user crafting item list
@@ -61,7 +61,6 @@ class InfoService {
         user: userId,
         craftingItems: craftingItem,
       });
-      console.log("info", info);
       // If there is no such document
       if (!info) {
         // Update document with userId
@@ -73,14 +72,13 @@ class InfoService {
       }
       // return "craftingItems" array
       const user = await infoModel.findOne({ user: userId });
-      console.log("user", user)
       return user.craftingItems;
     } catch (error) {
       return error;
     }
   }
 
-  // Remove crafting item from crafting items list 
+  // Remove crafting item from crafting items list
   async removeCraftingItem(userId, craftingItem) {
     try {
       const info = await infoModel.findOne({
@@ -124,6 +122,47 @@ class InfoService {
       return item;
     } catch (error) {
       return "There is no localization for this item";
+    }
+  }
+
+  // Add new crafting item to user crafting item list
+  async addCraftingItemSellPrices(userId, inprice) {
+    try {
+      // Find infoModel with "price" in "prices" array
+      const info = await infoModel.findOne({
+        user: userId,
+        "prices.name": inprice.name,
+      });
+      // If there is no such document
+      if (!info) {
+        // Update document with userId
+        // Push "price" to "prices" array
+        await infoModel.updateOne(
+          { user: userId },
+          { $push: { prices: inprice } }
+        );
+      } else {
+        
+        // info.update({"prices.name":inprice.name}, {$set: {"prices.$.priceList" : inprice.priceList}})
+        await infoModel.updateOne(
+          {
+            user: userId, 
+            "prices.name":inprice.name
+          },
+          {
+            $set : {
+              "prices.$.priceList" : inprice.priceList
+            }
+          }
+        )
+      }
+
+
+      // return "prices" array
+      const user = await infoModel.findOne({ user: userId });
+      return user.prices;
+    } catch (error) {
+      return error;
     }
   }
 }

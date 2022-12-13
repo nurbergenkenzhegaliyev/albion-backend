@@ -16,18 +16,17 @@ class InfoController {
     try {
       const { id, name, price } = req.body;
       await infoService.changeResourcePrice(id, name, price);
-      return res.json({ name, price });
+      return res.json(await infoService.getResourcePrices(id));
     } catch (error) {
       next(error);
     }
   }
-
+  
   async getCraftingItems(req, res, next) {
     try {
       const { id } = req.body;
-      const items = await infoService.getCraftingItems(id);
-
-      return res.json(items);
+      const info = await infoService.getCraftingItems(id);
+      return res.json(info);
     } catch (error) {
       next(error);
     }
@@ -37,7 +36,8 @@ class InfoController {
     try {
       const { id, craftingItem } = req.body;
       const data = await infoService.addCraftingItem(id, craftingItem);
-      res.json(data);
+      const dataPrices = await infoService.addCraftingItemSellPrices(id, {name: craftingItem["@uniquename"], priceList: [0,0,0,0,0]});
+      res.json({data, dataPrices});
     } catch (error) {
       next(error)
     }
@@ -52,6 +52,7 @@ class InfoController {
       next(error);
     }
   }
+
   async getItemInfo(req, res, next) {
     try {
       const { uniquename } = req.body;
@@ -71,6 +72,16 @@ class InfoController {
       res.json(itemLocalization);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async addCraftingItemSellPrices(req, res, next) {
+    try {
+      const { id, price } = req.body;
+      const data = await infoService.addCraftingItemSellPrices(id, price);
+      res.json(data);
+    } catch (error) {
+      next(error)
     }
   }
 }
