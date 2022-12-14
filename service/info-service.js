@@ -165,6 +165,35 @@ class InfoService {
       return error;
     }
   }
-}
+
+  // Add new crafting item to user crafting item list
+  async removeCraftingItemSellPrices(userId, uniquename) {
+    try {
+      // Find infoModel with "price" in "prices" array
+      const info = await infoModel.findOne({
+        user: userId,
+        "prices.name": uniquename,
+      });
+
+      if (info) {
+        await infoModel.updateOne(
+          { user: userId },
+          { $pull: { prices: {name: uniquename} } }
+        );
+      } 
+
+      // return "prices" array
+      const user = await infoModel.findOne({ user: userId });
+      return user.prices;
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+
+}// Class end
+
+
 
 export default new InfoService();

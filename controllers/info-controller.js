@@ -46,8 +46,10 @@ class InfoController {
   async removeCraftingItem(req, res, next) {
     try {
       const { id, craftingItem } = req.body;
-      const data = await infoService.removeCraftingItem(id, craftingItem);
-      res.json(data);
+      const craftingItems = await infoService.removeCraftingItem(id, craftingItem);
+      const prices = await infoService.removeCraftingItemSellPrices(id, craftingItem["@uniquename"])
+      res.json({craftingItems, prices});
+      // res.json(prices)
     } catch (error) {
       next(error);
     }
