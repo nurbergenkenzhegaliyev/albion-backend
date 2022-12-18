@@ -37,12 +37,15 @@ class InfoController {
       const { id, craftingItem } = req.body;
       const data = await infoService.addCraftingItem(id, craftingItem);
       const dataPrices = await infoService.addCraftingItemSellPrices(id, {name: craftingItem["@uniquename"], priceList: [0,0,0,0,0]});
+
+      
+
       res.json({data, dataPrices});
     } catch (error) {
       next(error)
     }
   }
-
+ 
   async removeCraftingItem(req, res, next) {
     try {
       const { id, craftingItem } = req.body;
@@ -67,9 +70,9 @@ class InfoController {
 
   async getItemLocaliztion(req, res, next) {
     try {
-      const { UniqueName } = req.body;
+      const { uniqueName } = req.body;
       const itemLocalization = await infoService.getItemLocalization(
-        UniqueName
+        uniqueName
       );
       res.json(itemLocalization);
     } catch (error) {

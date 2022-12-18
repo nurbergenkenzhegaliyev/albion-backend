@@ -32,12 +32,12 @@ class userService {
   async login(username, password) {
     const user = await UserModel.findOne({ username });
     if (!user) {
-      throw ApiError.BadRequest("Пользователь с таким ником не найден");
+      throw ApiError.BadRequest("Пользователь с таким ником и паролем не найден");
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.BadRequest("Неверный пароль");
+      throw ApiError.BadRequest("Пользователь с таким ником и паролем не найден");
     }
 
     const userDto = new UserDto(user);

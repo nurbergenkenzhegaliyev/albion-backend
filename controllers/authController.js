@@ -37,29 +37,29 @@ class authController {
             res.status(400).json({message: 'Registration error'})
         }
     }
-    async login(req, res) {
-        try {
-            const {username, password} = req.body;
-            const user = await User.findOne({username})
+    // async login(req, res) {
+    //     try {
+    //         const {username, password} = req.body;
+    //         const user = await User.findOne({username})
 
-            if(!user){
-                return res.status(400).json({message: `User ${username} not found`})
-            }
+    //         if(!user){
+    //             return res.status(400).json({message: `User ${username} not found`})
+    //         }
 
-            const validPassword = bcrypt.compareSync(password, user.password)
+    //         const validPassword = bcrypt.compareSync(password, user.password)
 
-            if(!validPassword){
-                return res.status(400).json({message: `Ввенден неверный пароль`})
-            }
+    //         if(!validPassword){
+    //             return res.status(400).json({message: `Введен неверный пароль`})
+    //         }
             
-            const token = generateAccessToken(user._id);
-            return res.json({token})
+    //         const token = generateAccessToken(user._id);
+    //         return res.json({token})
 
-        } catch (error) {
-            console.log(error)
-            res.status(400).json({message: 'Login error'})
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error)
+    //         res.status(400).json({message: 'Login error'})
+    //     }
+    // }
 }
 
 export default new authController();
