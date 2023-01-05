@@ -708,6 +708,55 @@ const ResourcePriceSchema = new mongoose.Schema({
   T8_ARTEFACT_TOKEN_FAVOR_2: { type: Number, default: 100 },
   T8_ARTEFACT_TOKEN_FAVOR_3: { type: Number, default: 100 },
   T8_ARTEFACT_TOKEN_FAVOR_4: { type: Number, default: 100 },
+
+  
+  T4_JOURNAL_HUNTER: { type: Number, default: 0 },
+  T5_JOURNAL_HUNTER: { type: Number, default: 0 },
+  T6_JOURNAL_HUNTER: { type: Number, default: 0 },
+  T7_JOURNAL_HUNTER: { type: Number, default: 0 },
+  T8_JOURNAL_HUNTER: { type: Number, default: 0 },
+  
+  T4_JOURNAL_WARRIOR: { type: Number, default: 0 },
+  T5_JOURNAL_WARRIOR: { type: Number, default: 0 },
+  T6_JOURNAL_WARRIOR: { type: Number, default: 0 },
+  T7_JOURNAL_WARRIOR: { type: Number, default: 0 },
+  T8_JOURNAL_WARRIOR: { type: Number, default: 0 },
+  
+  T4_JOURNAL_MAGE: { type: Number, default: 0 },
+  T5_JOURNAL_MAGE: { type: Number, default: 0 },
+  T6_JOURNAL_MAGE: { type: Number, default: 0 },
+  T7_JOURNAL_MAGE: { type: Number, default: 0 },
+  T8_JOURNAL_MAGE: { type: Number, default: 0 },
+  
+  T4_JOURNAL_TOOLMAKER: { type: Number, default: 0 },
+  T5_JOURNAL_TOOLMAKER: { type: Number, default: 0 },
+  T6_JOURNAL_TOOLMAKER: { type: Number, default: 0 },
+  T7_JOURNAL_TOOLMAKER: { type: Number, default: 0 },
+  T8_JOURNAL_TOOLMAKER: { type: Number, default: 0 },
+  
+  T4_JOURNAL_HUNTER_FILLED: { type: Number, default: 0 },
+  T5_JOURNAL_HUNTER_FILLED: { type: Number, default: 0 },
+  T6_JOURNAL_HUNTER_FILLED: { type: Number, default: 0 },
+  T7_JOURNAL_HUNTER_FILLED: { type: Number, default: 0 },
+  T8_JOURNAL_HUNTER_FILLED: { type: Number, default: 0 },
+  
+  T4_JOURNAL_WARRIOR_FILLED: { type: Number, default: 0 },
+  T5_JOURNAL_WARRIOR_FILLED: { type: Number, default: 0 },
+  T6_JOURNAL_WARRIOR_FILLED: { type: Number, default: 0 },
+  T7_JOURNAL_WARRIOR_FILLED: { type: Number, default: 0 },
+  T8_JOURNAL_WARRIOR_FILLED: { type: Number, default: 0 },
+  
+  T4_JOURNAL_MAGE_FILLED: { type: Number, default: 0 },
+  T5_JOURNAL_MAGE_FILLED: { type: Number, default: 0 },
+  T6_JOURNAL_MAGE_FILLED: { type: Number, default: 0 },
+  T7_JOURNAL_MAGE_FILLED: { type: Number, default: 0 },
+  T8_JOURNAL_MAGE_FILLED: { type: Number, default: 0 },
+  
+  T4_JOURNAL_TOOLMAKER_FILLED: { type: Number, default: 0 },
+  T5_JOURNAL_TOOLMAKER_FILLED: { type: Number, default: 0 },
+  T6_JOURNAL_TOOLMAKER_FILLED: { type: Number, default: 0 },
+  T7_JOURNAL_TOOLMAKER_FILLED: { type: Number, default: 0 },
+  T8_JOURNAL_TOOLMAKER_FILLED: { type: Number, default: 0 },
 });
 
 export default mongoose.model("ResourcePrice", ResourcePriceSchema);

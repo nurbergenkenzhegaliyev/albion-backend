@@ -34,8 +34,11 @@ class InfoController {
 
   async addCraftingItem(req, res, next) {
     try {
-      const { id, craftingItem } = req.body;
-      const data = await infoService.addCraftingItem(id, craftingItem);
+      const { id, craftingItem, maker } = req.body;
+      console.log('id',id)
+      console.log('craftingItem',craftingItem)
+      console.log('maker',maker)
+      const data = await infoService.addCraftingItem(id, craftingItem, maker);
       const dataPrices = await infoService.addCraftingItemSellPrices(id, {name: craftingItem["@uniquename"], priceList: [0,0,0,0,0]});
 
       
@@ -48,8 +51,9 @@ class InfoController {
  
   async removeCraftingItem(req, res, next) {
     try {
-      const { id, craftingItem } = req.body;
-      const craftingItems = await infoService.removeCraftingItem(id, craftingItem);
+      const { id, craftingItem, maker } = req.body;
+      console.log("craftingItem", craftingItem)
+      const craftingItems = await infoService.removeCraftingItem(id, craftingItem, maker);
       const prices = await infoService.removeCraftingItemSellPrices(id, craftingItem["@uniquename"])
       res.json({craftingItems, prices});
       // res.json(prices)

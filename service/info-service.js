@@ -54,20 +54,21 @@ class InfoService {
   }
 
   // Add new crafting item to user crafting item list
-  async addCraftingItem(userId, craftingItem) {
+  async addCraftingItem(userId, craftingItem, maker) {
     try {
-      // Find infoModel with "craftingItem" in "craftingItems" array
+      // Find infoModel with "craftingItem" in "craftingItems.maker" array
+      // maker=[hunter, mage, warrior, toolmaker]
       const info = await infoModel.findOne({
         user: userId,
-        craftingItems: craftingItem,
-      });
+        [`craftingItems.${maker}`]:craftingItem
+      }); 
       // If there is no such document
       if (!info) {
         // Update document with userId
-        // Push "craftingItem" to "craftinItems" array
+        // Push "craftingItem" to "craftinItems.maker" array
         await infoModel.updateOne(
           { user: userId },
-          { $push: { craftingItems: craftingItem } }
+          { $push: { [`craftingItems.${maker}`]:craftingItem} }
         );
       }
       // return "craftingItems" array
@@ -79,16 +80,16 @@ class InfoService {
   }
 
   // Remove crafting item from crafting items list
-  async removeCraftingItem(userId, craftingItem) {
+  async removeCraftingItem(userId, craftingItem, maker) {
     try {
       const info = await infoModel.findOne({
         user: userId,
-        craftingItems: craftingItem,
+        [`craftingItems.${maker}`]:craftingItem
       });
       if (info) {
         await infoModel.updateOne(
           { user: userId },
-          { $pull: { craftingItems: craftingItem } }
+          { $pull: { [`craftingItems.${maker}`]:craftingItem} }
         );
         const user = await infoModel.findOne({ user: userId });
         return user.craftingItems;
