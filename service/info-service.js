@@ -4,6 +4,7 @@ import infoModel from "../models/info-model.js";
 import resourcePriceModel from "../models/resourcePrice-model.js";
 import craftingItemModel from "../models/craftingItem-model.js";
 import itemLocaliztionModel from "../models/itemLocalizations-model.js";
+import simpleItemModel from "../models/simpleItem-model.js";
 
 class InfoService {
   // Creates a seperate document wit resource prices
@@ -114,6 +115,18 @@ class InfoService {
     }
   }
 
+  // Get information about a Simple item with uniquename
+  async getSimpleItemInfo(uniquename) {
+    try {
+      const item = await simpleItemModel.findOne({
+        "@uniquename": uniquename,
+      });
+      return item;
+    } catch (error) {
+      return "there is no such item";
+    }
+  }
+
   // Get localization info for an item with uniquename
   async getItemLocalization(uniquename) {
     try {
@@ -190,7 +203,6 @@ class InfoService {
       return error;
     }
   }
-
 
 
 }// Class end

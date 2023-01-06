@@ -20,6 +20,7 @@ router.post(
   infoController.removeCraftingItem
 );
 router.post("/getItemInfo", infoController.getItemInfo);
+router.post("/getSimpleItemInfo", infoController.getSimpleItemInfo);
 router.post("/getItemLocalization", infoController.getItemLocaliztion);
 
 

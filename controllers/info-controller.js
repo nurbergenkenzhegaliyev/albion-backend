@@ -72,6 +72,16 @@ class InfoController {
     }
   }
 
+  async getSimpleItemInfo(req, res, next) {
+    try {
+      const { uniquename } = req.body;
+      const item = await infoService.getSimpleItemInfo(uniquename);
+      res.json(item);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getItemLocaliztion(req, res, next) {
     try {
       const { uniqueName } = req.body;
