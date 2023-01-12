@@ -1,9 +1,9 @@
 import { Router } from "express";
-const router = new Router();
 import infoController from "../controllers/info-controller.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
 
+const router = new Router();
 router.post(
   "/getCraftingItems",
   authMiddleware,
@@ -20,7 +20,7 @@ router.post(
   infoController.removeCraftingItem
 );
 router.post("/getItemInfo", infoController.getItemInfo);
-router.post("/getSimpleItemInfo", infoController.getSimpleItemInfo);
+router.post("/getSimpleItemIV", infoController.getSimpleItemIV);
 router.post("/getItemLocalization", infoController.getItemLocaliztion);
 
 

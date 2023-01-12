@@ -1,4 +1,3 @@
-import ApiError from "../exceptions/api-error.js";
 import infoService from "../service/info-service.js";
 
 class InfoController {
@@ -35,9 +34,6 @@ class InfoController {
   async addCraftingItem(req, res, next) {
     try {
       const { id, craftingItem, maker } = req.body;
-      console.log('id',id)
-      console.log('craftingItem',craftingItem)
-      console.log('maker',maker)
       const data = await infoService.addCraftingItem(id, craftingItem, maker);
       const dataPrices = await infoService.addCraftingItemSellPrices(id, {name: craftingItem["@uniquename"], priceList: [0,0,0,0,0]});
 
@@ -72,10 +68,10 @@ class InfoController {
     }
   }
 
-  async getSimpleItemInfo(req, res, next) {
+  async getSimpleItemIV(req, res, next) {
     try {
       const { uniquename } = req.body;
-      const item = await infoService.getSimpleItemInfo(uniquename);
+      const item = await infoService.getSimpleItemIV(uniquename);
       res.json(item);
     } catch (error) {
       next(error);

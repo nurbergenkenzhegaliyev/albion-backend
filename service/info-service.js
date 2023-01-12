@@ -50,7 +50,6 @@ class InfoService {
   // Get crafting items list of an exact user
   async getCraftingItems(userId) {
     const info = await infoModel.findOne({ user: userId });
-    console.log(info)
     return info;
   }
 
@@ -116,12 +115,12 @@ class InfoService {
   }
 
   // Get information about a Simple item with uniquename
-  async getSimpleItemInfo(uniquename) {
+  async getSimpleItemIV(uniquename) {
     try {
       const item = await simpleItemModel.findOne({
         "@uniquename": uniquename,
       });
-      return item;
+      return item["@itemvalue"];
     } catch (error) {
       return "there is no such item";
     }
