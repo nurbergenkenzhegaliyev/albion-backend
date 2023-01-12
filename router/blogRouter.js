@@ -9,6 +9,6 @@ const router = new Router();
 router.get("/getAll", authMiddleware, adminMiddleware, blogController.getAll);
 router.post("/create", authMiddleware, adminMiddleware, blogController.createBlog);
 router.post("/delete", authMiddleware, adminMiddleware, blogController.deleteBlog);
-router.post("/edit/:id", authMiddleware, adminMiddleware);
+router.post("/edit", authMiddleware, adminMiddleware, blogController.editBlog);
 
 export default router;

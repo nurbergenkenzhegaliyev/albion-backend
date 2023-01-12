@@ -27,6 +27,13 @@ class BlogService {
         const temp = await blogModel.deleteOne({title})
         return temp;
     }
+
+    async editBlog(blogId, newTitle, newText, newSection) {
+        await blogModel.updateOne({id: blogId}, {$set: {title:newTitle, text:newText, section:newSection}})
+        const blog = await blogModel.findOne({id: blogId})
+
+        return blog;
+    }
 }
 
 export default new BlogService();

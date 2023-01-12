@@ -34,7 +34,9 @@ class BlogController {
 
     async editBlog(req,res,next) {
         try {
-            
+            const {blogId, title, text, section} = req.body;
+            const blog = await blogService.editBlog(blogId, title, text, section);
+            return res.json(blog)
         } catch (error) {
             
         }
