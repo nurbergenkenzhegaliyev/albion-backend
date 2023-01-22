@@ -11,6 +11,18 @@ class BlogController {
         }
     }
 
+    async getBlog(req,res,next) {
+        try {
+            console.log("GetBlog")
+            const { blogId } = req.body;
+            console.log("blogId", blogId)
+            const blog = await blogService.getBlog(blogId)
+            return res.json(blog);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async createBlog(req,res,next) {
         try {
             const {title, text, created, section} = req.body;

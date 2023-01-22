@@ -8,6 +8,11 @@ class BlogService {
         return allBlogs;
     }
 
+    async getBlog(blogId) {
+        const allBlogs = await blogModel.findOne({_id: blogId});
+        return allBlogs;
+    }
+
     async createBlog(title, text, created, section) {
         const blog = await blogModel.findOne({title})
         if(blog){

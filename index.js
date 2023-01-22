@@ -8,17 +8,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middleware/error-middleware.js";
 import infoRouter from "./router/infoRouter.js";
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
 
 const PORT = process.env.PORT || 5000;
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// let inital_path = path.join(__dirname, "public");
 
 const app = express();
-// app.use(express.static(inital_path));
 
 
 app.use(json());
